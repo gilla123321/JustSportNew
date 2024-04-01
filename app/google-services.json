@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945107932483",
+    "project_id": "justrun-b1864",
+    "storage_bucket": "justrun-b1864.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945107932483:android:43a40eef7d22f460cbcbf6",
+        "android_client_info": {
+          "package_name": "com.itai.justrun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ8VOlOTd72Pk0eCuYQDh21pUv8t5b_RM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
