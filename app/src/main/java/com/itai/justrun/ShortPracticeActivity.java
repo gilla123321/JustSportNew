@@ -2,16 +2,11 @@ package com.itai.justrun;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.itai.justrun.R;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -24,10 +19,11 @@ public class ShortPracticeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_short_practice);
 
-        // Initializing thetextView
+    }
+    public void onClick(View view){
+        // Initializing the text View
         TextView textView;
         textView = findViewById (R.id.textView);
-
         new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
