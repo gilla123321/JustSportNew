@@ -46,7 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        btnAddTaskScreen= findViewById(R.id.btnAddTaskScreen);
+        btnAddTaskScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivity(intent);
+            }
+        });
         btnOpenShortPractice = findViewById(R.id.button2);
         btnOpenShortPractice.setOnClickListener(new View.OnClickListener() {
             @Override
