@@ -14,7 +14,7 @@ import com.itai.justrun.login_activity.SignupActivity;
 import com.itai.justrun.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnLog, btnAddTaskScreen;
+    Button btnLog, btnAddTaskScreen, btnOpenShortPractice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnAddTaskScreen = findViewById(R.id.btnAddTaskScreen);
-        btnAddTaskScreen.setOnClickListener(new View.OnClickListener() {
+        btnOpenShortPractice = findViewById(R.id.button2);
+        btnOpenShortPractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShortPracticeActivity.class);
                 startActivity(intent);
             }
         });

@@ -26,6 +26,13 @@ android:orientation="vertical"
         android:id="@+id/btnAddTaskScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add task"/>
+        android:text="Add task" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="open short Practice page" />
 
 </LinearLayout>
