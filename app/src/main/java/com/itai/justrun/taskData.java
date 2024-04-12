@@ -6,7 +6,7 @@ public class taskData{
 
     String duration;
 
-    taskData(String name, String date)
+    taskData(String name, String date, String duration)
     {
         this.name= name;
         this.date= date;

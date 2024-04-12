@@ -36,6 +36,7 @@ android:orientation="vertical"
         android:text="open short Practice page" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="251dp" />
 
