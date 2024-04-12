@@ -3,6 +3,7 @@ package com.itai.justrun.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -35,19 +36,22 @@ public class AddTaskActivity extends AppCompatActivity {
         btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.e("XXX","Line 39");
                 if(txtTask.getText().toString().trim().equals("")){
                     Toast.makeText(AddTaskActivity.this, "Missing task info", Toast.LENGTH_LONG).show();
+                    Log.e("XXX","Line 42");
                     return;
                 }
                 progress.setVisibility(View.VISIBLE);
                 Map<String, Object> data = new HashMap<>();
                 data.put("taskDesc", txtTask.getText().toString());
+                Log.e("XXX",txtTask.getText().toString());
                 FirebaseHandler.addTask(data, new FirebaseHandler.SuccessCallbackInterface() {
                     @Override
                     public void onResponse(boolean success) {
 
                         if(success){
+                            Log.e("XXX","Succes");
                             finish();
                         }
                         else{

@@ -35,4 +35,8 @@ android:orientation="vertical"
         android:onClick="onClick"
         android:text="open short Practice page" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="251dp" />
+
 </LinearLayout>

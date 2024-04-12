@@ -76,6 +76,7 @@ public class FirebaseHandler {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        Log.e("XXX","line 79");
                         callback.onResponse(true);
                     }
                 })
@@ -83,7 +84,8 @@ public class FirebaseHandler {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("Debug", "Error writing document", e);
+
+                        Log.e("Debug", "Error writing document", e);
                         callback.onResponse(false);
                     }
                 });
@@ -93,13 +95,14 @@ public class FirebaseHandler {
         FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Log.e("XXX","line 98 fb");
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("TAG", document.getId() + " => " + document.getData());
+                        Log.e("TAG", document.getId() + " => " + document.getData());
                         // Process each document here. For example, you can convert the document to an object of your custom class.
                     }
                 } else {
-                    Log.w("TAG", "Error getting documents.", task.getException());
+                    Log.e("TAG", "Error getting documents.", task.getException());
                 }
             }
         });
