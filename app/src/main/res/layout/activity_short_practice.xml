@@ -9,15 +9,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="252dp"
-        android:layout_height="182dp"
-        android:text="&quot;&quot;"
+        android:layout_width="268dp"
+        android:layout_height="144dp"
+        android:text="timer:"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/button"
@@ -32,6 +33,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="297dp"
+        android:layout_height="61dp"
+        android:text="   RUN for 10 minutes!!"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.622"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.518" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
