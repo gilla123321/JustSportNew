@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.itai.justrun.activities.AddTaskActivity;
 import com.itai.justrun.activities.NavigatorActivity;
@@ -25,32 +26,36 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ClickListener listener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setView();
-        FirebaseHandler.getTasks();
 
-        List<taskData> list = new ArrayList<>();
-        list = getData();
-
-        recyclerView
-                = (RecyclerView)findViewById(
-                R.id.RecyclerView);
-        listener = new ClickListener() {
+        recyclerView = findViewById(R.id.RecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MainRecyclerAdapter(new ArrayList<>(), this, new ClickListener() {
             @Override
-            public void click(int index){
-           //     Toast.makeTexT(this,"clicked item index is "+index,Toast.LENGTH_LONG).show();
+            public void click(int index) {
+                // Handle click event here, if needed
             }
-        };
-        adapter
-                = new MainRecyclerAdapter(
-                list, getApplication(),listener);
+        });
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(MainActivity.this));
+
+        FirebaseHandler.getTasks(new FirebaseHandler.TaskCallback() {
+            @Override
+            public void onTaskLoaded(List<taskData> tasks) {
+                adapter.updateData(tasks);
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(MainActivity.this, "Error loading tasks: " + error, Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
 
     // Sample data for RecyclerView
     private List<taskData> getData()

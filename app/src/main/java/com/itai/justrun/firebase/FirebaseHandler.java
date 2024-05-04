@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.itai.justrun.AppUser;
+import com.itai.justrun.taskData;
 
 
 import java.util.ArrayList;
@@ -39,6 +40,11 @@ import java.util.concurrent.TimeUnit;
 
 
 public class FirebaseHandler {
+    public interface TaskCallback {
+        void onTaskLoaded(List<taskData> tasks);
+        void onError(String error);
+    }
+
     public interface SuccessCallbackInterface {
         void onResponse(boolean success);
     }
@@ -91,19 +97,18 @@ public class FirebaseHandler {
                 });
     }
 
-    public static void getTasks() {
-        FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.e("XXX","line 98 fb");
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.e("TAG", document.getId() + " => " + document.getData());
-                        // Process each document here. For example, you can convert the document to an object of your custom class.
-                    }
-                } else {
-                    Log.e("TAG", "Error getting documents.", task.getException());
+    public static void getTasks(TaskCallback callback) {
+        CollectionReference collection = FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone());
+        collection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<taskData> tasks = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    taskData td = document.toObject(taskData.class); // Ensure your taskData class fields match the Firestore document
+                    tasks.add(td);
                 }
+                callback.onTaskLoaded(tasks);
+            } else {
+                callback.onError(task.getException().getMessage());
             }
         });
     }

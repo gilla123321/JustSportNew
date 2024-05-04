@@ -15,6 +15,13 @@ public class MainRecyclerAdapter
     List<taskData> list = Collections.emptyList();
     Context context;
     ClickListener listener;
+    public void updateData(List<taskData> newData) {
+        list.clear();
+        list.addAll(newData);
+        notifyDataSetChanged();
+    }
+
+
 
     public MainRecyclerAdapter(List<taskData> list,
                                Context context, ClickListener listener)

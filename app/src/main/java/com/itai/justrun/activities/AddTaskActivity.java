@@ -2,6 +2,7 @@ package com.itai.justrun.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,13 +55,15 @@ public class AddTaskActivity extends AppCompatActivity {
 
                         if(success){
                             Log.e("XXX","Succes");
+
                             finish();
                         }
                         else{
                             Toast.makeText(AddTaskActivity.this, "Could not update firestore database ", Toast.LENGTH_LONG).show();
-
                         }
+
                         progress.setVisibility(View.GONE);
+
                     }
                 });
 

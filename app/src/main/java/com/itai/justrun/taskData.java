@@ -3,10 +3,32 @@ package com.itai.justrun;
 public class taskData{
     String name;
     String date;
-
-    String time;
-
     String duration;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
 
     taskData(String name, String date, String duration)
     {
