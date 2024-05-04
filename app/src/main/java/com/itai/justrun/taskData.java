@@ -4,6 +4,8 @@ public class taskData{
     String name;
     String date;
 
+    String time;
+
     String duration;
 
     taskData(String name, String date, String duration)

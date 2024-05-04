@@ -36,6 +36,8 @@ public class AddTaskActivity extends AppCompatActivity {
         btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: add time for practice and set notification
+
                 Log.e("XXX","Line 39");
                 if(txtTask.getText().toString().trim().equals("")){
                     Toast.makeText(AddTaskActivity.this, "Missing task info", Toast.LENGTH_LONG).show();
