@@ -41,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Signup","btn login clicked");
+                Log.e("Signup","btn login clicked");
                 startPhoneNumberVerification(txtPhone.getText().toString());
             }
         });

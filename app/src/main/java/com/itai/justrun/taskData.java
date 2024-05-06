@@ -30,6 +30,9 @@ public class taskData{
     }
 
 
+    // No-argument constructor
+    public taskData() {
+    }
     taskData(String name, String date, String duration)
     {
         this.name= name;

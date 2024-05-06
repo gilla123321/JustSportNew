@@ -1,6 +1,7 @@
 package com.itai.justrun;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class MainRecyclerAdapter
     Context context;
     ClickListener listener;
     public void updateData(List<taskData> newData) {
+        Log.e("XXXXX" , newData.toString());
         list.clear();
         list.addAll(newData);
         notifyDataSetChanged();
