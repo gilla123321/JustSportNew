@@ -19,8 +19,12 @@ public class MainRecyclerAdapter
     public void updateData(List<taskData> newData) {
         Log.e("XXXXX" , newData.toString());
         list.clear();
+        Log.e("yllll",list.toString() );
         list.addAll(newData);
+        Log.e("ssssss",list.toString() );
         notifyDataSetChanged();
+
+
     }
 
 
@@ -71,8 +75,10 @@ public class MainRecyclerAdapter
             @Override
             public void onClick(View view)
             {
+                Log.e("ttttt","line 74");
                 listener.click(index);
             }
+
         });
     }
 

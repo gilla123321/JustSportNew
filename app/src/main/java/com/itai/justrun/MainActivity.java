@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.itai.justrun.activities.AddTaskActivity;
@@ -26,18 +28,22 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ClickListener listener;
 
+    CalendarView calView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setView();
-
+Log.e("rrrr", "line 36");
         recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MainRecyclerAdapter(new ArrayList<>(), this, new ClickListener() {
             @Override
             public void click(int index) {
+                Log.e("yyyyy" ,"line 41");
+                adapter.notifyDataSetChanged();
                 // Handle click event here, if needed
             }
         });
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error loading tasks: " + error, Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
 
@@ -116,7 +123,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+           calView=findViewById(R.id.calendarView);
+           calView.setOnClickListener(new View.OnClickListener() {
+               public void onClick(View view)
+        {
+                Log.e("jjjj", "line 128");
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 }
