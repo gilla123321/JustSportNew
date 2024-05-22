@@ -36,7 +36,7 @@ public class Utils {
     public static void showAlertOkWithCallback(String title, String message, Context context, UserClick callback)
     {
         AlertDialog alertDialog = new AlertDialog.Builder(context)
-//                .setIcon(android.R.drawable.ic_dialog_alert)
+//             .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener()

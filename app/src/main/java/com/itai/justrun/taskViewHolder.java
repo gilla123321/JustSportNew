@@ -8,14 +8,14 @@ public class taskViewHolder
         extends RecyclerView.ViewHolder {
     TextView description;
 
+    TextView startTime;
     View view;
 
     taskViewHolder(View itemView)
     {
         super(itemView);
         description = itemView.findViewById(R.id.description);
-
-
+        startTime = itemView.findViewById(R.id.startTime);
         view = itemView;
     }
 }

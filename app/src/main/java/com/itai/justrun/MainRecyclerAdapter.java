@@ -32,31 +32,27 @@ public class MainRecyclerAdapter
                        int viewType)
     {
 
-        Context context
-                = parent.getContext();
-        LayoutInflater inflater
-                = LayoutInflater.from(context);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the layout
 
-        View photoView
-                = inflater
-                .inflate(R.layout.task_item,
-                        parent, false);
+        View photoView = inflater.inflate(R.layout.task_item, parent, false);
 
-        taskViewHolder viewHolder
-                = new taskViewHolder(photoView);
+        taskViewHolder viewHolder = new taskViewHolder(photoView);
         return viewHolder;
     }
 
 
     public void
-    onBindViewHolder(final taskViewHolder viewHolder,
-                     final int position)
+    onBindViewHolder(final taskViewHolder viewHolder, final int position)
     {
         final int index = viewHolder.getAdapterPosition();
         Task task = list.get(index);
         viewHolder.description.setText(task.getDescription());
+
+        //viewHolder.startTime.setText(task.getStartTime());
+
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
