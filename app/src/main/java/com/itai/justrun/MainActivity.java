@@ -1,9 +1,12 @@
 package com.itai.justrun;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +22,10 @@ import com.itai.justrun.login_activity.SignupActivity;
 import com.itai.justrun.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     Button btnLog, btnAddTaskScreen, btnOpenShortPractice;
@@ -30,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
     CalendarView calView;
 
+    private Calendar calendar = Calendar.getInstance();
+
+    private  List<Task> taskArrayList = new ArrayList<>();
+    private List<Task> filterTasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 Log.e("rrrr", "line 36");
         recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MainRecyclerAdapter(new ArrayList<>(), this, new ClickListener() {
+        adapter = new MainRecyclerAdapter(filterTasks, this, new ClickListener() {
             @Override
             public void click(int index) {
                 Log.e("yyyyy" ,"line 41");
@@ -51,8 +61,10 @@ Log.e("rrrr", "line 36");
 
         FirebaseHandler.getTasks(new FirebaseHandler.TaskCallback() {
             @Override
-            public void onTaskLoaded(List<taskData> tasks) {
-                adapter.updateData(tasks);
+            public void onTaskLoaded(List<Task> tasks) {
+                taskArrayList.addAll(tasks);
+                sortTasks();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -63,6 +75,16 @@ Log.e("rrrr", "line 36");
 
     }
 
+    private void sortTasks() {
+        filterTasks.clear();
+        filterTasks.addAll(taskArrayList.stream().filter(new Predicate<Task>() {
+            @Override
+            public boolean test(Task task) {
+                return task.getDate() == calendar.getTimeInMillis();
+            }
+        }).collect(Collectors.toList()));
+    }
+
 
     // Sample data for RecyclerView
     private List<taskData> getData()
@@ -70,15 +92,10 @@ Log.e("rrrr", "line 36");
 
         //simulation data - change to reading from DB
         List<taskData> list = new ArrayList<>();
-        list.add(new taskData("First Exam",
-                "May 23, 2015",
-                "Best Of Luck"));
-        list.add(new taskData("Second Exam",
-                "June 09, 2015",
-                "b of l"));
-        list.add(new taskData("My Test Exam",
-                "April 27, 2017",
-                "This is testing exam .."));
+        list.add(new taskData("First Exam", "May 23, 2015", "Best Of Luck", "11:00"));
+        list.add(new taskData("Second Exam", "June 09, 2015", "b of l", "11:00"));
+        list.add(new taskData("My Test Exam", "April 27, 2017", "This is testing exam ..", "11:00"));
+
 
         return list;
     }
@@ -110,7 +127,8 @@ Log.e("rrrr", "line 36");
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
-                startActivity(intent);
+                intent.putExtra("date", calendar.getTimeInMillis());
+                startActivityForResult(intent, 1);
             }
         });
         btnOpenShortPractice = findViewById(R.id.button2);
@@ -123,14 +141,32 @@ Log.e("rrrr", "line 36");
 
             }
         });
-           calView=findViewById(R.id.calendarView);
-           calView.setOnClickListener(new View.OnClickListener() {
-               public void onClick(View view)
-        {
-                Log.e("jjjj", "line 128");
-                adapter.notifyDataSetChanged();
-            }
-        });
 
+        Calendar temp = Calendar.getInstance();
+        temp.clear();
+        temp.setTimeInMillis(calendar.getTimeInMillis());
+        calendar.clear();
+        calendar.set(temp.get(Calendar.YEAR),temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
+           calView=findViewById(R.id.calendarView);
+           calView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+               @Override
+               public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                   calendar.clear();
+                   calendar.set(year, month, dayOfMonth);
+                   sortTasks();
+                   adapter.notifyDataSetChanged();
+               }
+           });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            Task task = (Task) data.getExtras().get("task");
+            taskArrayList.add(task);
+            sortTasks();
+            adapter.notifyDataSetChanged();
+        }
     }
 }

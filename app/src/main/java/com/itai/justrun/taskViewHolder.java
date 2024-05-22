@@ -6,23 +6,15 @@ import android.widget.TextView;
 
 public class taskViewHolder
         extends RecyclerView.ViewHolder {
-    TextView taskName;
-    TextView taskDate;
-    TextView taskDuration;
+    TextView description;
+
     View view;
 
     taskViewHolder(View itemView)
     {
         super(itemView);
-        taskName
-                = (TextView)itemView
-                .findViewById(R.id.taskName);
-        taskDate
-                = (TextView)itemView
-                .findViewById(R.id.taskDate);
-        taskDuration
-                = (TextView)itemView
-                .findViewById(R.id.taskDuration);
+        description = itemView.findViewById(R.id.description);
+
 
         view = itemView;
     }

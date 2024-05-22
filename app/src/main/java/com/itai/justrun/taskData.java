@@ -5,6 +5,12 @@ public class taskData{
     String date;
     String duration;
 
+    String startTime;
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -20,6 +26,8 @@ public class taskData{
     public String getName() {
         return name;
     }
+    public String getStartTime() {return startTime;}
+
 
     public String getDate() {
         return date;
@@ -33,10 +41,11 @@ public class taskData{
     // No-argument constructor
     public taskData() {
     }
-    taskData(String name, String date, String duration)
+    taskData(String name, String date, String duration, String startTime)
     {
         this.name= name;
         this.date= date;
         this.duration= duration;
+        this.startTime= startTime;
     }
 }

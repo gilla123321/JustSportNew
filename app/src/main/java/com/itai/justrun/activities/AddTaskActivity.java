@@ -2,8 +2,10 @@ package com.itai.justrun.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.credentials.Action;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,21 +14,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itai.justrun.R;
+import com.itai.justrun.Task;
 import com.itai.justrun.firebase.FirebaseHandler;
 import com.itai.justrun.login_activity.password_activity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AddTaskActivity extends AppCompatActivity {
     TextView txtTask;
     Button btnAddTask;
     ProgressBar progress;
 
+    long date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        date = getIntent().getLongExtra("date", 0L);
         setView();
     }
 
@@ -46,15 +53,16 @@ public class AddTaskActivity extends AppCompatActivity {
                     return;
                 }
                 progress.setVisibility(View.VISIBLE);
-                Map<String, Object> data = new HashMap<>();
-                data.put("taskDesc", txtTask.getText().toString());
-                Log.e("XXX",txtTask.getText().toString());
-                FirebaseHandler.addTask(data, new FirebaseHandler.SuccessCallbackInterface() {
+                Task task = new Task(UUID.randomUUID().toString(), txtTask.getText().toString(), date);
+                FirebaseHandler.addTask(task, new FirebaseHandler.SuccessCallbackInterface() {
                     @Override
                     public void onResponse(boolean success) {
 
                         if(success){
                             Log.e("XXX","Succes");
+                            Intent intent  = new Intent();
+                            intent.putExtra("task", task);
+                            setResult(Activity.RESULT_OK, intent);
 
                             finish();
                         }

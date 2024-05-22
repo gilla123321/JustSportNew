@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.itai.justrun.AppUser;
+import com.itai.justrun.Task;
 import com.itai.justrun.taskData;
 
 
@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FirebaseHandler {
     public interface TaskCallback {
-        void onTaskLoaded(List<taskData> tasks);
+        void onTaskLoaded(List<Task> tasks);
         void onError(String error);
     }
 
@@ -74,15 +74,14 @@ public class FirebaseHandler {
         FirebaseAuth.getInstance().signOut();
     }
 
-    public static void addTask(Map<String, Object> details, final SuccessCallbackInterface callback) {
+    public static void addTask(Task task, final SuccessCallbackInterface callback) {
 
         CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone());
-        usersCollection.add(details)
-//                .set(details, SetOptions.merge())
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        usersCollection.document(task.getId())
+                .set(task)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.e("XXX","line 79");
+                    public void onSuccess(Void unused) {
                         callback.onResponse(true);
                     }
                 })
@@ -101,9 +100,9 @@ public class FirebaseHandler {
         CollectionReference collection = FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone());
         collection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                List<taskData> tasks = new ArrayList<>();
+                List<Task> tasks = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    taskData td = document.toObject(taskData.class); // Ensure your taskData class fields match the Firestore document
+                    Task td = document.toObject(Task.class); // Ensure your taskData class fields match the Firestore document
                     tasks.add(td);
                 }
                 callback.onTaskLoaded(tasks);

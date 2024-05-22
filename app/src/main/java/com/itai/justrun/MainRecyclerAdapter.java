@@ -13,23 +13,13 @@ import java.util.List;
 
 public class MainRecyclerAdapter
         extends RecyclerView.Adapter<taskViewHolder> {
-    List<taskData> list = Collections.emptyList();
+    List<Task> list = Collections.emptyList();
     Context context;
     ClickListener listener;
-    public void updateData(List<taskData> newData) {
-        Log.e("XXXXX" , newData.toString());
-        list.clear();
-        Log.e("yllll",list.toString() );
-        list.addAll(newData);
-        Log.e("ssssss",list.toString() );
-        notifyDataSetChanged();
-
-
-    }
 
 
 
-    public MainRecyclerAdapter(List<taskData> list,
+    public MainRecyclerAdapter(List<Task> list,
                                Context context, ClickListener listener)
     {
         this.list = list;
@@ -65,12 +55,8 @@ public class MainRecyclerAdapter
                      final int position)
     {
         final int index = viewHolder.getAdapterPosition();
-        viewHolder.taskName
-                .setText(list.get(position).name);
-        viewHolder.taskDate
-                .setText(list.get(position).date);
-        viewHolder.taskDuration
-                .setText(list.get(position).duration);
+        Task task = list.get(index);
+        viewHolder.description.setText(task.getDescription());
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
