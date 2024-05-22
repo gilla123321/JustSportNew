@@ -25,6 +25,7 @@ import java.util.UUID;
 public class AddTaskActivity extends AppCompatActivity {
     TextView txtTask;
     Button btnAddTask;
+    String startTime;
     ProgressBar progress;
 
     long date;
@@ -53,7 +54,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     return;
                 }
                 progress.setVisibility(View.VISIBLE);
-                Task task = new Task(UUID.randomUUID().toString(), txtTask.getText().toString(), date);
+                Task task = new Task(UUID.randomUUID().toString(), txtTask.getText().toString(), date, startTime);
                 FirebaseHandler.addTask(task, new FirebaseHandler.SuccessCallbackInterface() {
                     @Override
                     public void onResponse(boolean success) {
