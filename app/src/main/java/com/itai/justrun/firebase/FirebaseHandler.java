@@ -77,15 +77,14 @@ public class FirebaseHandler {
     public static void addTask(Task task, final SuccessCallbackInterface callback) {
 
         CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(AppUser.sherdInstance().getPhone());
-        usersCollection.document(task.getId())
-                .set(task)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        Log.e("ggggg" , task.toString());
+        usersCollection.document(task.getId()).set(task).addOnSuccessListener(new OnSuccessListener<Void>()
+                {
                     @Override
                     public void onSuccess(Void unused) {
                         callback.onResponse(true);
                     }
                 })
-
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

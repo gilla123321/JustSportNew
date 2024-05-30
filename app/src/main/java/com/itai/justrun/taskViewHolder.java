@@ -15,7 +15,7 @@ public class taskViewHolder
     {
         super(itemView);
         description = itemView.findViewById(R.id.description);
-        startTime = itemView.findViewById(R.id.startTime);
+        startTime = itemView.findViewById(R.id.txtStartTime);
         view = itemView;
     }
 }

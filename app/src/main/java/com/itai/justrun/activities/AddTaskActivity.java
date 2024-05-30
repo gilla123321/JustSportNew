@@ -24,6 +24,7 @@ import java.util.UUID;
 
 public class AddTaskActivity extends AppCompatActivity {
     TextView txtTask;
+    TextView txtStartTime;
     Button btnAddTask;
     String startTime;
     ProgressBar progress;
@@ -40,6 +41,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private void setView() {
         txtTask = findViewById(R.id.txtTask);
+        txtStartTime = findViewById(R.id.txtStartTime);
         btnAddTask = findViewById(R.id.btnAddTask);
         progress = findViewById(R.id.spinner);
         btnAddTask.setOnClickListener(new View.OnClickListener() {
@@ -48,13 +50,13 @@ public class AddTaskActivity extends AppCompatActivity {
                 //TODO: add time for practice and set notification
 
                 Log.e("XXX","Line 39");
-                if(txtTask.getText().toString().trim().equals("")){
+                if(txtTask.getText().toString().trim().equals("")||txtStartTime.getText().toString().trim().equals("")){
                     Toast.makeText(AddTaskActivity.this, "Missing task info", Toast.LENGTH_LONG).show();
                     Log.e("XXX","Line 42");
                     return;
                 }
                 progress.setVisibility(View.VISIBLE);
-                Task task = new Task(UUID.randomUUID().toString(), txtTask.getText().toString(), date, startTime);
+                Task task = new Task(UUID.randomUUID().toString(), txtTask.getText().toString(), date, txtStartTime.getText().toString());
                 FirebaseHandler.addTask(task, new FirebaseHandler.SuccessCallbackInterface() {
                     @Override
                     public void onResponse(boolean success) {
@@ -63,6 +65,7 @@ public class AddTaskActivity extends AppCompatActivity {
                             Log.e("XXX","Succes");
                             Intent intent  = new Intent();
                             intent.putExtra("task", task);
+                            Log.e("ttttt", task.getStartTime().toString());
                             setResult(Activity.RESULT_OK, intent);
 
                             finish();
